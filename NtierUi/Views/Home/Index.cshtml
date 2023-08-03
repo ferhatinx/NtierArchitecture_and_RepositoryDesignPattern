@@ -1,0 +1,42 @@
+﻿@model List<WorkListDto>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">İş</th>
+            <th scope="col">Tamamlandı mı ?</th>
+            <th scope="col">İşlemler</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model.Count() > 0)
+                foreach (var work in Model)
+                {
+                    <tr>
+                        <th scope="row">@work.Id</th>
+                        <td>@work.Definition</td>
+                        <td>@work.isCompleted</td>
+                        <td>
+                            <a class="btn btn-warning" asp-route-id="@work.Id" asp-action="Update" asp-controller="Home">Güncelle</a>
+                            <a class="btn btn-warning" asp-route-id="@work.Id" asp-action="Remove" asp-controller="Home">Sil</a>
+                        </td>
+                    </tr>
+                }
+            else
+            {
+                <div class="alert alert-primary" role="alert">
+                    Hiç Bir İş Bulunamadı
+                </div>
+               
+            }
+        }
+        <div class="mt-1">
+            <a class="btn btn-primary" asp-action="Create" asp-controller="Home">Yeni İş Ekle</a>
+        </div>
+    </tbody>
+</table>
